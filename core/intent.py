@@ -29,10 +29,19 @@ def predict(data, items):
     return items[str(result)]
 
 def serving(text, tokenizer, items):
-    data = preprocess(text, tokenizer)
 
-    result = {
-        'status': 'success',
-        'intent': predict(data, items)
-    }
+    try:
+        data = preprocess(text, tokenizer)
+
+        result = {
+            'status': 'success',
+            'intent': predict(data, items)
+        }
+
+    except Exception as e:
+        result = {
+            'status': 'fail',
+            'intent': -1
+        }
+    
     return result
